@@ -8,11 +8,12 @@ function PostCreate() {
     e.preventDefault();
 
     const url = 'http://localhost:4000/posts';
-    await axios.post(url, {
-      title,
-    });
-
-    setTitle('');
+    await axios
+      .post(url, {
+        title,
+      })
+      .then(() => setTitle(''))
+      .catch((err) => console.log(err.message));
   };
 
   return (

@@ -7,9 +7,10 @@ function CommentList({ postId }) {
   useEffect(() => {
     const fetchData = async () => {
       const url = `http://localhost:4001/posts/${postId}/comments`;
-      const res = await axios.get(url);
-
-      setComments(res.data);
+      await axios
+        .get(url)
+        .then((res) => setComments(res.data))
+        .catch((err) => console.log(err.message));
     };
 
     fetchData();

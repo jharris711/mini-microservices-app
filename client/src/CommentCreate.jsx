@@ -8,11 +8,12 @@ function CommentCreate({ postId }) {
     e.preventDefault();
 
     const url = `http://localhost:4001/posts/${postId}/comments`;
-    await axios.post(url, {
-      content,
-    });
-
-    setContent('');
+    await axios
+      .post(url, {
+        content,
+      })
+      .then(() => setContent(''))
+      .catch((err) => console.log(err.message));
   };
 
   return (
