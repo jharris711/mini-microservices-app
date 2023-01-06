@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CommentCreate from './CommentCreate';
+import CommentList from './CommentList';
 
 function PostList() {
   const [posts, setPosts] = useState({});
 
-  const fetchPosts = async () => {
-    const res = await axios.get('http://localhost:4000/posts');
-
-    setPosts(res.data);
-  };
-
   useEffect(() => {
+    const fetchPosts = async () => {
+      const url = 'http://localhost:4000/posts';
+      const res = await axios.get(url);
+
+      setPosts(res.data);
+    };
+
     fetchPosts();
   }, []);
 
@@ -24,6 +26,7 @@ function PostList() {
       >
         <div className='card-body'>
           <h3>{post.title}</h3>
+          <CommentList postId={post.id} />
           <CommentCreate postId={post.id} />
         </div>
       </div>
@@ -31,7 +34,7 @@ function PostList() {
   });
 
   return (
-    <div className='d-flew flew-row flex-wrap justify-content-between'>
+    <div className='d-flex flex-row flex-wrap justify-content-between'>
       {renderedPosts}
     </div>
   );
