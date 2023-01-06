@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { randomBytes } = require('crypto');
 
 const port = process.env.PORT || 4001;
@@ -7,6 +8,7 @@ const commentsByPostId = {};
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // GET
 app.get(commentsEndpoint, (req, res) => {
