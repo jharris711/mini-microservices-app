@@ -4,6 +4,8 @@ const { randomBytes } = require('crypto');
 const axios = require('axios');
 
 const port = process.env.PORT || 4001;
+const eventBusUrl = 'http://localhost:4005/events';
+const eventsEndpoint = '/events';
 const commentsEndpoint = '/posts/:id/comments';
 const commentsByPostId = {};
 
@@ -28,7 +30,7 @@ app.post(commentsEndpoint, async (req, res) => {
   commentsByPostId[req.params.id] = comments;
 
   await axios
-    .post('http://localhost:4005/events', {
+    .post(eventBusUrl, {
       type: 'ContentCreated',
       data: { id: commentId, content, postId: req.params.id },
     })
@@ -36,6 +38,12 @@ app.post(commentsEndpoint, async (req, res) => {
     .catch((err) => console.log(err.message));
 
   res.status(201).send(comments);
+});
+
+app.post(eventsEndpoint, (req, res) => {
+  console.log('Comments - Event Received', req.body.type);
+
+  res.send({});
 });
 
 app.listen(port, () => {
