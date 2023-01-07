@@ -8,7 +8,7 @@ function PostList() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const url = 'http://localhost:4000/posts';
+      const url = 'http://localhost:4002/posts';
       await axios
         .get(url)
         .then((res) => setPosts(res.data))
@@ -27,7 +27,7 @@ function PostList() {
       >
         <div className='card-body'>
           <h3>{post.title}</h3>
-          <CommentList postId={post.id} />
+          <CommentList comments={post.comments} />
           <CommentCreate postId={post.id} />
         </div>
       </div>

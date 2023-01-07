@@ -31,7 +31,7 @@ app.post(commentsEndpoint, async (req, res) => {
 
   await axios
     .post(eventBusUrl, {
-      type: 'ContentCreated',
+      type: 'CommentCreated',
       data: { id: commentId, content, postId: req.params.id },
     })
     .then(() => {})
