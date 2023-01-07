@@ -21,10 +21,12 @@ app.post('/events', (req, res) => {
     .catch((err) =>
       console.log(`Error sending event to Comments Service: ${err.message}`)
     );
-  /* axios
+  axios
     .post('http://localhost:4002/events', event)
     .then((res) => console.log(res))
-    .catch((err) => console.log(err.message)); */
+    .catch((err) =>
+      console.log(`Error sending event to Query Service: ${err.message}`)
+    );
 
   res.send({ status: 'OK' });
 });
