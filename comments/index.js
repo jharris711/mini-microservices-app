@@ -57,8 +57,8 @@ app.post(commentsEndpoint, async (req, res) => {
 
 /**
  * POST /events
- * @param {Object} body - The request body, containing the event to be processed.
- * @returns {Object} An empty object.
+ * @param { Object } body - The request body, containing the event to be processed.
+ * @returns { Object } An empty object.
  */
 app.post(eventsEndpoint, async (req, res) => {
   console.log('Comments - Event Received', req.body.type);
