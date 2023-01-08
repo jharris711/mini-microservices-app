@@ -11,21 +11,27 @@ app.post('/events', (req, res) => {
 
   axios
     .post('http://localhost:4000/events', event)
-    .then((res) => console.log(res))
+    .then((res) => console.log('OK - (Posts)'))
     .catch((err) =>
       console.log(`Error sending event to Posts Service: ${err.message}`)
     );
   axios
     .post('http://localhost:4001/events', event)
-    .then((res) => console.log(res))
+    .then((res) => console.log('OK - (Comments)'))
     .catch((err) =>
       console.log(`Error sending event to Comments Service: ${err.message}`)
     );
   axios
     .post('http://localhost:4002/events', event)
-    .then((res) => console.log(res))
+    .then((res) => console.log('OK - (Query)'))
     .catch((err) =>
       console.log(`Error sending event to Query Service: ${err.message}`)
+    );
+  axios
+    .post('http://localhost:4003/events', event)
+    .then((res) => console.log('OK - (Moderation)'))
+    .catch((err) =>
+      console.log(`Error sending event to Moderation Service: ${err.message}`)
     );
 
   res.send({ status: 'OK' });
