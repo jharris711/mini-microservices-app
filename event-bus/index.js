@@ -8,6 +8,11 @@ app.use(cors());
 
 const events = [];
 
+/**
+ * POST /events
+ * @param { Object } body - The request body, containing the event to be broadcast.
+ * @returns { Object } An object with a "status" field, indicating the status of the broadcast.
+ */
 app.post('/events', (req, res) => {
   const event = req.body;
 
@@ -41,6 +46,10 @@ app.post('/events', (req, res) => {
   res.send({ status: 'OK' });
 });
 
+/**
+ * GET /events
+ * @returns { Array } An array of events that have been received by the service.
+ */
 app.get('/events', (req, res) => {
   res.send(events);
 });

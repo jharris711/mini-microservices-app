@@ -10,6 +10,11 @@ app.use(cors());
 
 const posts = {};
 
+/**
+ * Handle an event by updating the posts object accordingly.
+ * @param { string } type - The type of the event to be processed.
+ * @param { Object } data - The data associated with the event to be processed.
+ */
 const handleEvent = (type, data) => {
   const postCreated = type === 'PostCreated';
   const commentCreated = type === 'CommentCreated';
@@ -39,10 +44,19 @@ const handleEvent = (type, data) => {
   }
 };
 
+/**
+ * GET /posts
+ * @returns { Object } An object containing all the posts.
+ */
 app.get('/posts', (req, res) => {
   res.send(posts);
 });
 
+/**
+ * POST /events
+ * @param { Object } body - The request body, containing the event to be processed.
+ * @returns { Object } An empty object.
+ */
 app.post('/events', (req, res) => {
   console.log('Query - Event Received', req.body.type);
   const { type, data } = req.body;

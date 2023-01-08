@@ -6,6 +6,11 @@ app.use(express.json());
 
 const port = process.env.PORT || 4003;
 
+/**
+ * POST /events
+ * @param { Object } body - The request body, containing the event to be processed.
+ * @returns { Object } An empty object.
+ */
 app.post('/events', async (req, res) => {
   console.log('Moderation - Event Received', req.body.type);
   const { type, data } = req.body;

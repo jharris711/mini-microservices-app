@@ -14,12 +14,21 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// GET
+/**
+ * GET /posts/:id/comments
+ * @param { string } id - the ID of the post to retrieve comments for
+ * @returns { Array } An array of comments for the specified post
+ */
 app.get(commentsEndpoint, (req, res) => {
   res.send(commentsByPostId[req.params.id] || []);
 });
 
-// POST
+/**
+ * POST /posts/:id/comments
+ * @param { string } id - The ID of the post to add the comment to.
+ * @param { Object } body - The request body, containing the comment to be added.
+ * @returns { Array } An array of comments for the specified post, including the newly added comment.
+ */
 app.post(commentsEndpoint, async (req, res) => {
   const commentId = randomBytes(4).toString('hex');
   const { content } = req.body;
@@ -46,6 +55,11 @@ app.post(commentsEndpoint, async (req, res) => {
   res.status(201).send(comments);
 });
 
+/**
+ * POST /events
+ * @param {Object} body - The request body, containing the event to be processed.
+ * @returns {Object} An empty object.
+ */
 app.post(eventsEndpoint, async (req, res) => {
   console.log('Comments - Event Received', req.body.type);
 
