@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
 
 const port = process.env.PORT || 4002;
 
@@ -9,13 +10,7 @@ app.use(cors());
 
 const posts = {};
 
-app.get('/posts', (req, res) => {
-  res.send(posts);
-});
-
-app.post('/events', (req, res) => {
-  console.log('Query - Event Received', req.body.type);
-  const { type, data } = req.body;
+const handleEvent = (type, data) => {
   const postCreated = type === 'PostCreated';
   const commentCreated = type === 'CommentCreated';
   const commentUpdated = type === 'CommentUpdated';
@@ -42,10 +37,30 @@ app.post('/events', (req, res) => {
     comment.status = status;
     comment.content = content;
   }
+};
+
+app.get('/posts', (req, res) => {
+  res.send(posts);
+});
+
+app.post('/events', (req, res) => {
+  console.log('Query - Event Received', req.body.type);
+  const { type, data } = req.body;
+
+  handleEvent(type, data);
 
   res.send({});
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Query service listening on ${port}`);
+  await axios
+    .get('http://localhost:4005/events')
+    .then((res) => {
+      for (let event of res.data) {
+        console.log(`Processing event: ${event.type}`);
+        handleEvent(event.type, event.data);
+      }
+    })
+    .catch((err) => console.log(err.message));
 });
