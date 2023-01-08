@@ -6,6 +6,8 @@
 
 A React.js application that allows user to create posts and comments, then displays posts and comments.
 
+<img width="1792" alt="Screenshot 2023-01-08 at 3 11 30 AM" src="https://user-images.githubusercontent.com/49429928/211186611-9c9a8c4f-4fee-4e0a-92fe-19870a9caa97.png">
+
 ---
 
 # Services
