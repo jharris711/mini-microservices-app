@@ -6,6 +6,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+const port = process.env.PORT || 4005;
+const postsService = `http://posts-clusterip-srv:4000/events`;
+const commentsService = `http://comments-srv:4001/events`;
+const queryService = `http://query-srv:4002/events`;
+const moderationService = `http://moderation-srv:4003/events`;
 const events = [];
 
 /**
@@ -19,25 +24,25 @@ app.post('/events', (req, res) => {
   events.push(event);
 
   axios
-    .post('http://localhost:4000/events', event)
+    .post(postsService, event)
     .then((res) => console.log('OK - (Posts)'))
     .catch((err) =>
       console.log(`Error sending event to Posts Service: ${err.message}`)
     );
   axios
-    .post('http://localhost:4001/events', event)
+    .post(commentsService, event)
     .then((res) => console.log('OK - (Comments)'))
     .catch((err) =>
       console.log(`Error sending event to Comments Service: ${err.message}`)
     );
   axios
-    .post('http://localhost:4002/events', event)
+    .post(queryService, event)
     .then((res) => console.log('OK - (Query)'))
     .catch((err) =>
       console.log(`Error sending event to Query Service: ${err.message}`)
     );
   axios
-    .post('http://localhost:4003/events', event)
+    .post(moderationService, event)
     .then((res) => console.log('OK - (Moderation)'))
     .catch((err) =>
       console.log(`Error sending event to Moderation Service: ${err.message}`)
@@ -54,6 +59,6 @@ app.get('/events', (req, res) => {
   res.send(events);
 });
 
-app.listen(4005, () => {
+app.listen(port, () => {
   console.log('Event-bus listening on 4005');
 });

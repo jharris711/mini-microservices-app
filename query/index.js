@@ -3,6 +3,7 @@ const cors = require('cors');
 const axios = require('axios');
 
 const port = process.env.PORT || 4002;
+const eventBusEndpoint = 'http://event-bus-srv:4005/events';
 
 const app = express();
 app.use(express.json());
@@ -69,7 +70,7 @@ app.post('/events', (req, res) => {
 app.listen(port, async () => {
   console.log(`Query service listening on ${port}`);
   await axios
-    .get('http://localhost:4005/events')
+    .get(eventBusEndpoint)
     .then((res) => {
       for (let event of res.data) {
         console.log(`Processing event: ${event.type}`);

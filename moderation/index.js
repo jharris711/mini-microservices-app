@@ -5,6 +5,7 @@ const app = express();
 app.use(express.json());
 
 const port = process.env.PORT || 4003;
+const eventBusEndpoint = 'http://event-bus-srv:4005/events';
 
 /**
  * POST /events
@@ -20,7 +21,7 @@ app.post('/events', async (req, res) => {
     const status = data.content.includes(`orange`) ? 'rejected' : 'approved';
 
     await axios
-      .post('http://localhost:4005/events', {
+      .post(eventBusEndpoint, {
         type: 'CommentModerated',
         data: {
           id: data.id,

@@ -5,7 +5,7 @@ const axios = require('axios');
 const { type } = require('os');
 
 const port = process.env.PORT || 4001;
-const eventBusUrl = 'http://localhost:4005/events';
+const eventBusUrl = 'http://event-bus-srv:4005/events';
 const eventsEndpoint = '/events';
 const commentsEndpoint = '/posts/:id/comments';
 const commentsByPostId = {};
@@ -76,7 +76,7 @@ app.post(eventsEndpoint, async (req, res) => {
     comment.status = status;
 
     await axios
-      .post(`http://localhost:4005/events`, {
+      .post(eventBusUrl, {
         type: 'CommentUpdated',
         data: {
           id,
