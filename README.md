@@ -4,6 +4,8 @@
 
 ## To Start:
 
+- You must have [Docker](https://www.docker.com/), [Kubernetes](https://kubernetes.io/), and [Skaffold](https://skaffold.dev/docs/install/#standalone-binary) installed on your machine.
+
 - Clone the repo & change into the root dir:
 
   ```bash
