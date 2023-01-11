@@ -2,6 +2,29 @@
 
 ### A simple application designed to showcase the principles of modern microservice applications
 
+## To Start:
+
+- Clone the repo & change into the root dir:
+
+  ```bash
+  git clone https://github.com/jharris711/mini-microservices-app.git
+  cd mini-microservices-app
+  ```
+
+- Add the following to your `/etc/hosts` file
+
+  ```
+  127.0.0.1 posts.com
+  ```
+
+- Run the following command to start up the services:
+
+  ```bash
+  skaffold dev
+  ```
+
+- The User Interface will be available in your browser at http://posts.com
+
 ## Client:
 
 A React.js application that allows user to create posts and comments, then displays posts and comments.
